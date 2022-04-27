@@ -73,7 +73,6 @@ function endRound() {
       currentPlayerHealth,
       currentMonsterHealth
     );
-
   } else if (currentPlayerHealth <= 0 && currentMonsterHealth > 0) {
     alert('Monster Won!');
 
@@ -83,7 +82,6 @@ function endRound() {
       currentPlayerHealth,
       currentMonsterHealth
     );
-
   } else if (currentPlayerHealth < 0 && currentMonsterHealth < 0) {
     alert("It's a draw");
 
@@ -93,7 +91,6 @@ function endRound() {
       currentPlayerHealth,
       currentMonsterHealth
     );
-
   }
 
   if (currentMonsterHealth <= 0 || currentPlayerHealth <= 0) {
@@ -102,26 +99,16 @@ function endRound() {
 }
 
 function attackMonster(mode) {
-  let maxDamage;
-  let logEvent;
-
-  if (mode === MODE_ATTACK) {
-    maxDamage = ATTACK_VALUE;
-    logEvent = LOG_EVENT_PLAYER_ATTACK;
-  } else {
-    maxDamage = STRONG_ATTACK_VALUE;
-    logEvent = LOG_EVENT_PLAYER_STRONG_ATTACK;
-  }
+  const maxDamage = mode === MODE_ATTACK ? ATTACK_VALUE : STRONG_ATTACK_VALUE;
+  const logEvent =
+    mode === MODE_ATTACK
+      ? LOG_EVENT_PLAYER_ATTACK
+      : LOG_EVENT_PLAYER_STRONG_ATTACK;
 
   const damage = dealMonsterDamage(maxDamage);
   currentMonsterHealth -= damage;
 
-  writeToLog(
-    logEvent,
-    damage,
-    currentPlayerHealth,
-    currentMonsterHealth
-  );
+  writeToLog(logEvent, damage, currentPlayerHealth, currentMonsterHealth);
 
   endRound();
 }
